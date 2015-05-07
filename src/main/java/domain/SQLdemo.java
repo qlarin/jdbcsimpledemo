@@ -11,10 +11,11 @@ public class SQLdemo {
 		String insert = "Insert into authors " + " (name) "
 				+ " values ('John Deep')";
 		String update = "Update authors set name='John Marks' where id=11";
-		String delete = "Delete from authors where id=9";
+		String delete = "Delete from authors where id = 9";
 		
 		// List of queries for prepared statement
 		String select2 = "Select * from authors " + " where id >= ?";
+		String delete2 = "Delete from authors " + " where id = ?";
 
 		Connection myConn = null;
 		PreparedStatement pstm = null;
@@ -26,11 +27,18 @@ public class SQLdemo {
 					"jdbc:mysql://localhost:3306/testdb", "user1", "user1");
 			// Statement stm = myConn.createStatement();
 
+			pstm = myConn.prepareStatement(delete2);
+			pstm.setInt(1, 5);
+			int rowsAffected = pstm.executeUpdate();
+			System.out.println("Rows affected: " + rowsAffected);
+			System.out.println("Delete complete\n");
+			pstm.close();
+			
 			pstm = myConn.prepareStatement(select2);
 			pstm.setInt(1, 5);
-			
 			prs = pstm.executeQuery();
 			display(prs);
+			pstm.close();
 			
 			// Delete Query
 			/*int rowsAffected = stm.executeUpdate(delete);
