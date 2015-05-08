@@ -39,6 +39,17 @@ public class SQLdemo {
 			prs = pstm.executeQuery();
 			display(prs);
 			pstm.close();
+			System.out.println();
+			
+			DatabaseMetaData dbmd = myConn.getMetaData();
+			
+			System.out.println("Product name: " + dbmd.getDatabaseProductName());
+			System.out.println("Product version: " + dbmd.getDatabaseProductVersion());
+			System.out.println();
+			
+			System.out.println("JDBC Driver name: " + dbmd.getDriverName());
+			System.out.println("JDBC Driver version: " + dbmd.getDriverVersion());
+			System.out.println();
 			
 			// Delete Query
 			/*int rowsAffected = stm.executeUpdate(delete);
