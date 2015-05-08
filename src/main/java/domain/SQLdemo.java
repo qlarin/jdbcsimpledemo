@@ -21,6 +21,12 @@ public class SQLdemo {
 		PreparedStatement pstm = null;
 		ResultSet prs = null;
 		
+		String catalog = null;
+		String schemaPattern = null;
+		String tableNamePattern = null;
+		String[] types = null;
+		String columnNamePattern = null;
+		
 		try {
 
 			myConn = DriverManager.getConnection(
@@ -49,6 +55,20 @@ public class SQLdemo {
 			
 			System.out.println("JDBC Driver name: " + dbmd.getDriverName());
 			System.out.println("JDBC Driver version: " + dbmd.getDriverVersion());
+			System.out.println();
+			
+			System.out.println("Tables in DB:");
+			prs = dbmd.getTables(catalog, schemaPattern, tableNamePattern, types);
+			while(prs.next()){
+				System.out.println(prs.getString("TABLE_NAME"));
+			}
+			System.out.println();
+			
+			System.out.println("Columns in DB:");
+			prs = dbmd.getColumns(catalog, schemaPattern, "authors", columnNamePattern);
+			while(prs.next()){
+				System.out.println(prs.getString("COLUMN_NAME"));
+			}
 			System.out.println();
 			
 			// Delete Query
